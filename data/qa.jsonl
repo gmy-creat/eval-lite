@@ -1,0 +1,8 @@
+{"id": "q1", "prompt": "法国的首都是哪里？", "reference": "巴黎"}
+{"id": "q2", "prompt": "1 + 1 等于几？", "reference": "2"}
+{"id": "q3", "prompt": "地球有几颗天然卫星？", "reference": "1"}
+{"id": "q4", "prompt": "水的化学式是什么？", "reference": "H2O"}
+{"id": "q5", "prompt": "太阳系中体积最大的行星是哪个？", "reference": "木星"}
+{"id": "q6", "prompt": "光在真空中的速度大约是多少？", "reference": "30 万公里每秒"}
+{"id": "q7", "prompt": "世界上面积最大的国家是哪个？", "reference": "俄罗斯"}
+{"id": "q8", "prompt": "人体最大的器官是什么？", "reference": "皮肤"}

@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets - never commit
+.env
+
+# Generated reports
+results/
+
+# PyCharm project settings
+.idea/

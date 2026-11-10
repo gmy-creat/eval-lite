@@ -1,0 +1,67 @@
+[project]
+name = "eval-lite"
+version = "0.1.0"
+description = "给一批问题和参考答案，并发跑多个模型，产出可对比的效果报告"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "typer>=0.12",
+    "httpx>=0.27",
+]
+
+# 这一行让 `eval-lite` 变成一个真正的终端命令。
+# 左边是命令名，右边是「模块:函数」。
+[project.scripts]
+eval-lite = "eval_lite.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "ruff>=0.17",
+    "pre-commit>=3.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eval_lite"]
+
+
+# ---------------------------------------------------------------------------
+# 工具配置
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# B008 说"别在参数默认值里调用函数"，这条规则对普通函数是对的 ——
+# 因为默认值只求值一次，`def f(x=[])` 这类坑就是它抓的。
+#
+# 但 typer / FastAPI 这类框架的写法恰恰相反，它们**要求**你把 Option() 写在
+# 默认值位置，框架靠这个来收集参数定义：
+#     def run(x: int = typer.Option(8, "--concurrency")): ...
+#
+# 所以这是误报，只在 CLI 这个文件里关掉，不要全局关。
+"src/eval_lite/cli.py" = ["B008"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src"]

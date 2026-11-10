@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: 装依赖
+        run: uv sync
+
+      - name: 检查代码
+        run: uv run ruff check .
+
+      - name: 跑测试
+        run: uv run pytest

@@ -1,0 +1,19 @@
+# 提交前自动跑检查。
+#
+# 用 repo: local 而不是远程仓库 —— 直接调用项目里的 ruff，
+# 版本跟 pyproject.toml 锁定的完全一致，第一次跑也不用联网。
+
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff check
+        entry: ruff check --fix
+        language: system
+        types: [python]
+
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
